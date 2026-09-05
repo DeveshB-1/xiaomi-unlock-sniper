@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import time
 import json
 import argparse
@@ -8,11 +9,11 @@ from datetime import datetime, timezone, timedelta
 # Target Xiaomi Global API Endpoint
 API_URL = "https://sgp-api.buy.mi.com/bbs/api/global/apply/bl-auth"
 
-# Captured Credentials & Device Tokens
-SERVICE_TOKEN = "XxMKTR8913M%2FArytCfrxAHNeephO1csL5uNWjeXvSI2OKW1aQQAs5Ah3V86nX6AaikjkjjJ5blFV57uWAE%2B9ttkOZDj%2FP4p6t%2Bo8RIrrAqgEPDKKt5xjQUZz3V%2FlLRI1KuLy90wW5EMmIJTOyMFHjSTQxdFdiSbdB3XQdXnNjWg%3D"
-DEVICE_ID = "927991B7CC07ECCAF75A14C7D836F6512CDC7051"
-VERSION_CODE = "500428"
-VERSION_NAME = "5.4.28"
+# Read credentials from environment variables (GitHub Secrets) or local fallback
+SERVICE_TOKEN = os.environ.get("SERVICE_TOKEN", "XxMKTR8913M%2FArytCfrxAHNeephO1csL5uNWjeXvSI2OKW1aQQAs5Ah3V86nX6AaikjkjjJ5blFV57uWAE%2B9ttkOZDj%2FP4p6t%2Bo8RIrrAqgEPDKKt5xjQUZz3V%2FlLRI1KuLy90wW5EMmIJTOyMFHjSTQxdFdiSbdB3XQdXnNjWg%3D")
+DEVICE_ID = os.environ.get("DEVICE_ID", "927991B7CC07ECCAF75A14C7D836F6512CDC7051")
+VERSION_CODE = os.environ.get("VERSION_CODE", "500428")
+VERSION_NAME = os.environ.get("VERSION_NAME", "5.4.28")
 
 HEADERS = {
     "User-Agent": "okhttp/4.12.0",
@@ -79,8 +80,8 @@ def run_sniper():
     print(f"🎯 Target Time: {target.strftime('%Y-%m-%d %H:%M:%S %Z')}")
     print(f"🕒 Current Time: {datetime.now(ist).strftime('%Y-%m-%d %H:%M:%S.%f %Z')[:-3]}")
     
-    # Burst start: 21:29:59.800 IST (200ms lead time for network latency to Singapore)
-    burst_lead = 0.200
+    # Burst start: 21:29:59.850 IST (150ms lead time for network latency to Singapore)
+    burst_lead = 0.150
     
     session = requests.Session()
     # Warm up TCP / TLS handshake connection early
