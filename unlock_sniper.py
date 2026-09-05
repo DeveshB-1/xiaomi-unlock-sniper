@@ -105,7 +105,7 @@ def run_sniper():
             break
             
     # Send rapid burst requests around the 21:30:00.000 mark
-    for i in range(1, 40):
+    for i in range(1, 80):
         t_req = datetime.now(ist).strftime("%H:%M:%S.%f")[:-3]
         status, res = send_request(session)
         print(f"[{t_req}] Request #{i:02d} -> HTTP {status} | Result: {res}")
